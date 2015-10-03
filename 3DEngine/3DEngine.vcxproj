@@ -11,7 +11,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\CoreEngine.cpp" />
+    <ClCompile Include="src\core\Debug.cpp" />
+    <ClCompile Include="src\core\Game.cpp" />
+    <ClCompile Include="src\core\Node.cpp" />
+    <ClCompile Include="src\core\Time.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\rendering\RenderingEngine.cpp" />
+    <ClCompile Include="src\rendering\Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\core\CoreEngine.h" />
+    <ClInclude Include="src\core\Debug.h" />
+    <ClInclude Include="src\core\Game.h" />
+    <ClInclude Include="src\core\Node.h" />
+    <ClInclude Include="src\core\Time.h" />
+    <ClInclude Include="src\rendering\RenderingEngine.h" />
+    <ClInclude Include="src\rendering\Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A3232B9A-9041-4C46-BF6E-4AF5E19038BA}</ProjectGuid>
@@ -47,12 +63,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\libs\glfw\include;$(ProjectDir)\libs\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\libs\glm\glm;$(ProjectDir)\libs\glfw\include;$(ProjectDir)\libs\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)\libs\glfw\lib-vc2013;$(ProjectDir)\libs\glew\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:MSVCRT %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -62,7 +79,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\libs\glfw\include;$(ProjectDir)\libs\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\libs\glm\glm;$(ProjectDir)\libs\glfw\include;$(ProjectDir)\libs\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
