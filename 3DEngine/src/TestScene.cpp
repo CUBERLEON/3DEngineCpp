@@ -61,8 +61,6 @@ void TestScene::init()
 	object1->getTransform()->setPosition(0, 0, 2);
 	getRoot()->addChild(object1);
 
-// 	S::NewSceneComponent("jhj")->
-// 		S::Get<SceneComponent>("sdfsd")->GetTransform()->SetPOos()->SetScale
 	Node* test1 = (new Node)->addComponent(new MeshRenderer(planeMesh, material2));
 	Node* test2 = (new Node)->addComponent(new MeshRenderer(planeMesh, material2));
 	Node* test3 = (new Node)->addComponent(new MeshRenderer(planeMesh, material2));
@@ -75,7 +73,7 @@ void TestScene::init()
 	getRoot()->addChild(test1);
 
 	//lights
-	DirectionalLight* m_directionalLight = new DirectionalLight(glm::vec3(1, 1, 1), 0.4f);
+	DirectionalLight* m_directionalLight = new DirectionalLight(glm::vec3(1, 1, 1), 0.2f);
 	std::vector<PointLight*> m_pointLights({ new PointLight(glm::vec3(1, 1, 0), 3.0f, new Attenuation(0, 0, 1)),
 											 new PointLight(glm::vec3(0, 1, 1), 3.0f, new Attenuation(0, 0, 1)) });
 	std::vector<SpotLight*> m_spotLights({ new SpotLight(glm::vec3(1, 1, 1), 2.0f, new Attenuation(0.5f, 0.15f, 0), cos(glm::radians(15.))),
@@ -102,7 +100,7 @@ void TestScene::init()
 
 	getRoot()->addChildren(pointLightObjects);
 	getRoot()->addChildren(spotLightObjects);
-// 	getRoot()->addChild(directionalLightObject);
+	getRoot()->addChild(directionalLightObject);
 
 	//camera
 	Node* cameraObject = new Node();
@@ -112,7 +110,7 @@ void TestScene::init()
 
 	cameraObject->getTransform()->setPosition(glm::vec3(5, 5, 5))
 							    ->setRotation(glm::quat(glm::vec3(glm::radians(-45.), 0, 0)));
-	cameraObject->addComponent(new PerspectiveCamera(glm::radians(60.), 800. / 600., 0.1f, 100.0f));
+	cameraObject->addComponent(new PerspectiveCamera(glm::radians(60.), 1100. / 700., 0.1f, 100.0f));
 	getRoot()->addChild(cameraObject);
 // 	test3->addChild(cameraObject);
 	// 	cameraObject.addComponent(new PerspectiveCamera((float)Math.toRadians(60), Window.getWidth() / (float)Window.getHeight(), 0.1f, 100.0f));
