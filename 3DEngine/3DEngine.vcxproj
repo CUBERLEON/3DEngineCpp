@@ -11,23 +11,67 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\PerspectiveCamera.cpp" />
+    <ClCompile Include="src\components\MeshRenderer.cpp" />
+    <ClCompile Include="src\rendering\Mesh.cpp" />
+    <ClCompile Include="src\core\Input.cpp" />
+    <ClCompile Include="src\components\SpotLight.cpp" />
+    <ClCompile Include="src\components\PointLight.cpp" />
+    <ClCompile Include="src\components\DirectionalLight.cpp" />
+    <ClCompile Include="src\components\Light.cpp" />
+    <ClCompile Include="src\rendering\shaders\Shader.cpp" />
+    <ClCompile Include="src\rendering\resources\ShaderData.cpp" />
+    <ClCompile Include="src\rendering\resources\MeshData.cpp" />
+    <ClCompile Include="src\rendering\Material.cpp" />
+    <ClCompile Include="src\rendering\Container.cpp" />
+    <ClCompile Include="src\rendering\Attenuation.cpp" />
+    <ClCompile Include="src\components\Component.cpp" />
+    <ClCompile Include="src\components\Camera.cpp" />
     <ClCompile Include="src\core\CoreEngine.cpp" />
-    <ClCompile Include="src\core\Debug.cpp" />
-    <ClCompile Include="src\core\Game.cpp" />
+    <ClCompile Include="src\core\Scene.cpp" />
     <ClCompile Include="src\core\Node.cpp" />
     <ClCompile Include="src\core\Time.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\rendering\RenderingEngine.cpp" />
     <ClCompile Include="src\rendering\Window.cpp" />
+    <ClCompile Include="src\core\Transform.cpp" />
+    <ClCompile Include="src\rendering\Vertex.cpp" />
+    <ClCompile Include="src\rendering\Texture.cpp" />
+    <ClCompile Include="src\rendering\resources\TextureData.cpp" />
+    <ClCompile Include="src\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\PerspectiveCamera.h" />
+    <ClInclude Include="src\components\MeshRenderer.h" />
+    <ClInclude Include="src\libs\stb_image.h" />
+    <ClInclude Include="src\rendering\Mesh.h" />
+    <ClInclude Include="src\core\Input.h" />
+    <ClInclude Include="src\components\SpotLight.h" />
+    <ClInclude Include="src\components\PointLight.h" />
+    <ClInclude Include="src\components\DirectionalLight.h" />
+    <ClInclude Include="src\components\Light.h" />
+    <ClInclude Include="src\rendering\shaders\GLSLvariable.h" />
+    <ClInclude Include="src\rendering\shaders\Shader.h" />
+    <ClInclude Include="src\rendering\resources\ShaderData.h" />
+    <ClInclude Include="src\rendering\resources\MeshData.h" />
+    <ClInclude Include="src\rendering\Material.h" />
+    <ClInclude Include="src\rendering\Container.h" />
+    <ClInclude Include="src\rendering\Attenuation.h" />
+    <ClInclude Include="src\components\Component.h" />
+    <ClInclude Include="src\components\Camera.h" />
     <ClInclude Include="src\core\CoreEngine.h" />
     <ClInclude Include="src\core\Debug.h" />
-    <ClInclude Include="src\core\Game.h" />
+    <ClInclude Include="src\core\Scene.h" />
     <ClInclude Include="src\core\Node.h" />
     <ClInclude Include="src\core\Time.h" />
     <ClInclude Include="src\rendering\RenderingEngine.h" />
     <ClInclude Include="src\rendering\Window.h" />
+    <ClInclude Include="src\core\Transform.h" />
+    <ClInclude Include="src\rendering\Vertex.h" />
+    <ClInclude Include="src\rendering\Texture.h" />
+    <ClInclude Include="src\rendering\resources\TextureData.h" />
+    <ClInclude Include="src\TestScene.h" />
+    <ClInclude Include="src\core\Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A3232B9A-9041-4C46-BF6E-4AF5E19038BA}</ProjectGuid>
@@ -63,12 +107,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\libs\glm\glm;$(ProjectDir)\libs\glfw\include;$(ProjectDir)\libs\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\libs\fbx\include;$(ProjectDir)\libs\assimp\include;$(ProjectDir)\libs\glm\include;$(ProjectDir)\libs\glfw\include;$(ProjectDir)\libs\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)\libs\glfw\lib-vc2013;$(ProjectDir)\libs\glew\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\libs\fbx\lib\vs2013\x86\debug;$(ProjectDir)\libs\assimp\lib32;$(ProjectDir)\libs\glfw\lib-vc2013;$(ProjectDir)\libs\glew\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;assimp.lib;libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/NODEFAULTLIB:MSVCRT %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -79,14 +125,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\libs\glm\glm;$(ProjectDir)\libs\glfw\include;$(ProjectDir)\libs\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\libs\fbx\include;$(ProjectDir)\libs\assimp\include;$(ProjectDir)\libs\glm\include;$(ProjectDir)\libs\glfw\include;$(ProjectDir)\libs\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(ProjectDir)\libs\glew\lib-vc2013;$(ProjectDir)\libs\glew\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\libs\fbx\lib\vs2013\x86\release;$(ProjectDir)\libs\assimp\lib32;$(ProjectDir)\libs\glfw\lib-vc2013;$(ProjectDir)\libs\glew\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;assimp.lib;libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

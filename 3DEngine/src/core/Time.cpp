@@ -1,5 +1,6 @@
 #include "Time.h"
 #include <time.h>
+#include "Debug.h"
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(WIN64)
 	#define OS_WINDOWS
@@ -63,6 +64,6 @@ double Time::getTime()
 	#endif
 
 	#ifdef OS_OTHER
-		return (double)SDL_GetTicks()/1000.0;
+		Debug::fatalError("couldn't find any time.now() function");
 	#endif
 }

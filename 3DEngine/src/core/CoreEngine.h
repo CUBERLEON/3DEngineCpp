@@ -1,35 +1,19 @@
-#pragma once
+#ifndef CORE_ENGINE_H
+#define CORE_ENGINE_H
 
 #include <string>
-#include <chrono>
-#include <thread>
 
-#include "../rendering/RenderingEngine.h"
-#include "../rendering/Window.h"
-#include "Debug.h"
-#include "Time.h"
-
-class Game;
+class Scene;
+class RenderingEngine;
+class Window;
 
 class CoreEngine 
 {
-private:
-	float m_fpsLimit;
-	bool m_fpsUnlimited;
-
-	Window* m_window;
-	RenderingEngine* m_renderingEngine;
-	Game* m_game;
-	bool m_isRunning;
-
-	void run();
-	void cleanUp();
-
 public:
-	CoreEngine(Game* game, float fpsLimit, bool fpsUnlimited);
+	CoreEngine(Scene* game, float fpsLimit, bool fpsUnlimited);
 	~CoreEngine();
 
-	void createWindow(int width, int height, std::string title);
+	void createWindow(int width, int height, const std::string& title);
 
 	void start();
 	void stop();
@@ -38,5 +22,20 @@ public:
 	inline void setFpsLimit(float val) { m_fpsLimit = val; }
 	inline bool isFpsUnlimited() const { return m_fpsUnlimited; }
 	inline void setFpsUnlimited(bool val) { m_fpsUnlimited = val; }
-// 	RenderingEngine getRenderingEngine() const { return m_renderingEngine; }
+
+	RenderingEngine* getRenderingEngine() const;
+	Window* getWindow() const;
+protected:
+private:
+	float m_fpsLimit;
+	bool m_fpsUnlimited;
+
+	RenderingEngine* m_renderingEngine;
+	Window* m_window;
+	Scene* m_scene;
+
+	bool m_isRunning;
+
+	void run();
 };
+#endif // CORE_ENGINE_H

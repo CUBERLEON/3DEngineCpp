@@ -1,31 +1,39 @@
 #pragma once
 
 #include <string>
-#include "GL\glew.h"
-#include "GLFW\glfw3.h"
-#include "glm.hpp"
+#include <GL\glew.h>
+#include <GLFW\glfw3.h>
+#include <glm\glm.hpp>
 
-#include "../core/Debug.h"
+class Input;
 
 class Window
 {
-private:
-	GLFWwindow* m_window;
-	std::string m_title;
-
 public:
 	Window(int width, int height, std::string title);
 	~Window();
 
-	void render();
+	void refresh();
+	void resize(int width, int height);
+
 	bool isCloseRequested();
 	bool isCreated();
 
 	int getWidth();
 	int getHeight();
+
 	std::string getTitle();
 	glm::vec2 getCenter();
 
-	void resize(int width, int height);
+	Input* getInput();
+	GLFWwindow* getGLFWwindow();
+
+	void moveToScreenCenter();
+protected:
+private:
+	GLFWwindow* m_glfwWindow;
+	Input* m_input;
+
+	std::string m_title;
 };
 

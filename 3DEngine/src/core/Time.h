@@ -1,6 +1,11 @@
-#pragma once
+#ifndef TIME_H
+#define TIME_H
 
-namespace Time
+class Time
 {
-	double getTime();
+public:
+	static double getTime();
+protected:
+private:
 };
+#endif // TIME_H

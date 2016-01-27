@@ -1,23 +1,31 @@
 #include "CoreEngine.h"
-#include "Game.h"
 
-CoreEngine::CoreEngine(Game* game, float fpsLimit, bool fpsUnlimited)
+#include <chrono>
+#include <thread>
+
+#include "../rendering/RenderingEngine.h"
+#include "../rendering/Window.h"
+#include "Scene.h"
+#include "Debug.h"
+#include "Time.h"
+
+CoreEngine::CoreEngine(Scene* scene, float fpsLimit, bool fpsUnlimited) : 
+m_fpsLimit(fpsLimit), m_fpsUnlimited(fpsUnlimited), m_scene(scene), m_isRunning(false)
 {
-	m_fpsLimit = fpsLimit;
-	m_fpsUnlimited = fpsUnlimited;
-
-	m_game = game;
-	m_isRunning = false;
 }
 
 CoreEngine::~CoreEngine()
 {
+// 	m_game.dispose();
+// 	m_renderingEngine.dispose();
+// 
+// 	Window.dispose();
 }
 
-void CoreEngine::createWindow(int width, int height, std::string title)
+void CoreEngine::createWindow(int width, int height, const std::string& title)
 {
 	m_window = new Window(width, height, title);
-	m_renderingEngine = new RenderingEngine();
+	m_renderingEngine = new RenderingEngine(m_window);
 }
 
 void CoreEngine::start()
@@ -27,12 +35,12 @@ void CoreEngine::start()
 
 	if (!m_window)
 	{
-		Debug::error("trying to start CoreEngine when Window wasn't created!");
+		Debug::error("trying to start CoreEngine when Window wasn't created");
 		return;
 	}
 
-	m_game->init();
-	m_game->setEngine(this);
+	m_scene->setCoreEngine(this);
+	m_scene->init();
 
 	run();
 }
@@ -43,6 +51,20 @@ void CoreEngine::stop()
 		return;
 
 	m_isRunning = false;
+}
+
+RenderingEngine* CoreEngine::getRenderingEngine() const
+{
+	if (m_renderingEngine == nullptr)
+		Debug::warning("NULL returned while executing CoreEngine.getRenderingEngine()");
+	return m_renderingEngine;
+}
+
+Window* CoreEngine::getWindow() const
+{
+	if (m_window == nullptr)
+		Debug::warning("NULL returned while executing CoreEngine.getWindow()");
+	return m_window;
 }
 
 void CoreEngine::run()
@@ -78,9 +100,8 @@ void CoreEngine::run()
 
 			render = true;
 
-			m_game->input((float)gameTime);
-			m_game->update((float)gameTime);
-// 			Input.update();
+			m_scene->input((float)gameTime);
+			m_scene->update((float)gameTime);
 		}
 
 		if (fpsTime >= fpsRefreshTime)
@@ -92,25 +113,12 @@ void CoreEngine::run()
 
 		if (render || m_fpsUnlimited)
 		{
-// 			m_game->render(m_renderingEngine);
-			glClear(GL_COLOR_BUFFER_BIT);
-			m_window->render();
-			glfwPollEvents();
+			m_scene->render(m_renderingEngine);
 			frames++;
 		}
 		else 
 		{
-// 			std::this_thread::sleep_for(std::chrono::nanoseconds(10));
+			std::this_thread::sleep_for(std::chrono::nanoseconds(10));
 		}
 	}
-
-	cleanUp();
-}
-
-void CoreEngine::cleanUp()
-{
-// 	m_game.dispose();
-// 	m_renderingEngine.dispose();
-// 
-// 	Window.dispose();
 }
