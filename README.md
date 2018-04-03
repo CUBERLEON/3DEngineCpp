@@ -6,6 +6,12 @@
 - Support of .obj models
 - Scene graph
 
+## Dependencies
+- Assimp (objects loading)
+- GLEW
+- GLFW 3
+- GLM
+
 ## Screenshots
 | ![](/screenshot1.png?raw=true) | ![](/screenshot2.png?raw=true) |
 | ------------- | ------------- |
